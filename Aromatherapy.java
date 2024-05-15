@@ -49,7 +49,7 @@ public class Aromatherapy extends HealingAbility implements AddonAbility, ComboA
 			return;
 		} else if (!bPlayer.canWaterHeal() || !bPlayer.canPlantbend()) {
 			return;
-		} else if (RegionProtection.isRegionProtectedFromBuild(player, player.getLocation(), this)) {
+		} else if (RegionProtection.isRegionProtected(player, player.getLocation(), this)) {
 			return;
 		}
 		this.cooldown = ConfigManager.getConfig().getLong(path + "Cooldown");
@@ -59,7 +59,7 @@ public class Aromatherapy extends HealingAbility implements AddonAbility, ComboA
 		this.target = rayTraceBlock(player, this.select_range);
 		
 		if (this.target == null) return;
-		if (RegionProtection.isRegionProtectedFromBuild(player, this.target.getLocation(), this)) {
+		if (RegionProtection.isRegionProtected(player, this.target.getLocation(), this)) {
 			return;
 		}
 		this.origin = this.target.getLocation().clone().add(0.5, 0.5, 0.5);
@@ -115,7 +115,7 @@ public class Aromatherapy extends HealingAbility implements AddonAbility, ComboA
 			Location circle = location.clone().add(x, 0, z);
 			Block top = GeneralMethods.getTopBlock(circle, 3);
 			
-			if (!GeneralMethods.isRegionProtectedFromBuild(this, top.getLocation())) {
+			if (!RegionProtection.isRegionProtected(player, top.getLocation(), this)) {
 				if (isPlant(top)) {
 					consumer.accept(top.getLocation().clone().add(0.5, 0.5, 0.5));
 				}
